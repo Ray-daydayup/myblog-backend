@@ -21,8 +21,8 @@ const USER_ACCOUNT_DISABLE = async (ctx) =>
 	new SuccessModel(2003, "账号不可用").success(ctx)
 const USER_ACCOUNT_NOT_EXIST = async (ctx) =>
 	new SuccessModel(2004, "账号不存在").success(ctx)
-const USER_ACCOUNT_ALREADY_EXIST = async (ctx) =>
-	new SuccessModel(2005, "账号已存在").success(ctx)
+const USER_ACCOUNT_ALREADY_EXIST = async (ctx, msg = "账号已存在") =>
+	new SuccessModel(2005, msg).success(ctx)
 const USER_ACCOUNT_USE_BY_OTHERS = async (ctx) =>
 	new SuccessModel(2006, "账号下线").success(ctx)
 const USER_PWD_ERROR = async (ctx) =>

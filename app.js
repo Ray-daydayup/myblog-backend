@@ -32,7 +32,7 @@ app.use(async (ctx, next) => {
 // jwt
 app.use(
 	jwtKoa({ debug: true, secret }).unless({
-		path: ["/", "/user/login", "/user/register", "/category/list"],
+		path: ["/", "/user/login", "/user/register", /^\/category\/list/],
 	})
 )
 
