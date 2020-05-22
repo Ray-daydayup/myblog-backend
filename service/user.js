@@ -4,12 +4,9 @@ const { generatePassword } = require("../utils/cryp")
 const {
 	SUCCESS,
 	USER_NO_PERMISSION,
-	USER_NOT_LOGIN,
-	USER_ACCOUNT_EXPIRED,
 	USER_ACCOUNT_DISABLE,
 	USER_ACCOUNT_NOT_EXIST,
 	USER_ACCOUNT_ALREADY_EXIST,
-	USER_ACCOUNT_USE_BY_OTHERS,
 	USER_PWD_ERROR,
 } = require("../utils/resCode")
 // 登录

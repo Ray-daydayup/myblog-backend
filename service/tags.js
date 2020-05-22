@@ -1,4 +1,4 @@
-const { select, del, insert, update } = require("../controllers/category")
+const { select, del, insert, update } = require("../controllers/tags")
 const {
 	SUCCESS,
 	USER_NO_PERMISSION,
@@ -27,7 +27,7 @@ async function updateService(ctx, params) {
 	}
 	const selectRes = await select({ name: params.name })
 	if (selectRes[0]) {
-		await USER_ACCOUNT_ALREADY_EXIST(ctx, "分类已存在")
+		await USER_ACCOUNT_ALREADY_EXIST(ctx, "标签已存在")
 		return
 	}
 	const result = await update(params)
@@ -41,7 +41,7 @@ async function insertService(ctx, params) {
 	}
 	const selectRes = await select({ name: params.name })
 	if (selectRes[0]) {
-		await USER_ACCOUNT_ALREADY_EXIST(ctx, "分类已存在")
+		await USER_ACCOUNT_ALREADY_EXIST(ctx, "标签已存在")
 		return
 	}
 	const result = await insert(params)

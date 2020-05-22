@@ -32,16 +32,24 @@ app.use(async (ctx, next) => {
 // jwt
 app.use(
 	jwtKoa({ debug: true, secret }).unless({
-		path: ["/", "/user/login", "/user/register", /^\/category\/list/],
+		path: [
+			"/",
+			"/user/login",
+			"/user/register",
+			/^\/category\/list/,
+			/^\/tag\/list/,
+		],
 	})
 )
 
 // routes
 const user = require("./routes/user")
 const category = require("./routes/category")
+const tag = require("./routes/tags")
 
 app.use(user.routes(), user.allowedMethods())
 app.use(category.routes(), category.allowedMethods())
+app.use(tag.routes(), tag.allowedMethods())
 
 // 404
 app.use(async (ctx, next) => {
