@@ -24,7 +24,6 @@ const update = async (params) => {
 	params.hasOwnProperty("name") && strArr.push(`name=${escape(params.name)}`)
 	params.hasOwnProperty("description") &&
 		strArr.push(`description=${escape(params.description)}`)
-	// console.log(strArr)
 	const sql = `update categories set ${strArr.join(",")} where id=${id}`
 	const result = await exec(sql)
 	return result

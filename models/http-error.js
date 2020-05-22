@@ -1,8 +1,8 @@
 class ErrorModel {
-	constructor(code, msg, statusCode) {
-		this.code = code || 500
-		this.msg = msg || "未知服务器错误"
-		this.statusCode = statusCode || 500
+	constructor(code = 500, msg = "未知服务器错误", statusCode = 500) {
+		this.code = code
+		this.msg = msg
+		this.statusCode = statusCode
 	}
 	throwErr(ctx) {
 		ctx.throw(this.statusCode, this.msg, {

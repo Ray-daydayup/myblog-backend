@@ -4,7 +4,7 @@ const format = (err, ctx) => {
 	ctx.response.status = err.statusCode
 	ctx.response.body = {
 		code: err.code,
-		msg: err.message,
+		msg: err.message || err.msg,
 		request: ctx.method + " >> " + ctx.url,
 	}
 }
