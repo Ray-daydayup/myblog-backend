@@ -46,10 +46,12 @@ app.use(
 const user = require("./routes/user")
 const category = require("./routes/category")
 const tag = require("./routes/tags")
+const article = require("./routes/article")
 
 app.use(user.routes(), user.allowedMethods())
 app.use(category.routes(), category.allowedMethods())
 app.use(tag.routes(), tag.allowedMethods())
+app.use(article.routes(), article.allowedMethods())
 
 // 404
 app.use(async (ctx, next) => {

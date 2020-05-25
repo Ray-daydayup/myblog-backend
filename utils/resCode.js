@@ -47,7 +47,7 @@ const PARAM_NOT_COMPLETE = async (ctx, msg = "请求参数缺失") =>
 // }
 // const TOKEN_IS_BLANK = generateErr(AuthError)(ctx,401,'token为空')
 const TOKEN_IS_BLANK = async (ctx) =>
-	new AuthError(401, "token为空").throwErr(ctx)
+	new AuthError(4004, "token为空").throwErr(ctx)
 const TOKEN_EXPIRED = async (ctx) =>
 	new AuthError(4001, "token过期").throwErr(ctx)
 const TOKEN_INVALID = async (ctx) =>

@@ -133,7 +133,7 @@ function rulesCheck(params, key, rules) {
 		const max = rules.max ? rules.max : Infinity
 		const type = rules.type
 		let length = 0
-		if (type === "string") {
+		if (type === "string" || type === Array) {
 			length = params[key].length
 		}
 		if (type === "number") {
