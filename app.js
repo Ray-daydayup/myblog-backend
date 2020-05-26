@@ -38,6 +38,7 @@ app.use(
 			"/user/register",
 			/^\/category\/list/,
 			/^\/tag\/list/,
+			/^\/article\/list/,
 		],
 	})
 )

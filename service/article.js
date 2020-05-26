@@ -1,10 +1,23 @@
 const articles = require("../controllers/articles")
 const articlesTags = require("../controllers/articles_tags")
+const { selectList, selectOne } = require("../controllers/article_view")
 const {
 	SUCCESS,
 	USER_NO_PERMISSION,
 	USER_ACCOUNT_ALREADY_EXIST,
 } = require("../utils/resCode")
+
+async function selectListService(ctx, params) {
+	let page = params.page
+	params.page = (page - 1) * params.pagesize
+	const result = await selectList(params)
+	await SUCCESS(ctx, removeDuplicates(result))
+}
+
+async function selectOneService(ctx, params) {
+	const result = await selectOne(params)
+	await SUCCESS(ctx, removeDuplicates(result)[0])
+}
 
 async function delService(ctx, params) {
 	const userInfo = ctx.state.user
@@ -55,4 +68,35 @@ async function insertService(ctx, params) {
 	const articlesTagsRes = await articlesTags.insert(articlesTagsParams)
 	await SUCCESS(ctx, { articleId: articlesRes.insertId })
 }
-module.exports = { delService, updateService, insertService }
+
+/**
+ * 文章去重
+ *
+ * @param {*} arr
+ * @returns
+ */
+function removeDuplicates(arr) {
+	const result = {}
+	for (let i = 0; i < arr.length; i++) {
+		const element = arr[i]
+		let temp = {
+			tagId: element.tag_id,
+			name: element.tag,
+		}
+		if (!result[element.article_id]) {
+			delete element.tag
+			delete element.tag_id
+			result[element.article_id] = element
+			result[element.article_id].tags = []
+		}
+		result[element.article_id].tags.push(temp)
+	}
+	return Object.values(result)
+}
+module.exports = {
+	delService,
+	updateService,
+	insertService,
+	selectListService,
+	selectOneService,
+}
