@@ -1,6 +1,10 @@
 const articles = require("../controllers/articles")
 const articlesTags = require("../controllers/articles_tags")
-const { selectList, selectOne } = require("../controllers/article_view")
+const {
+	selectList,
+	selectOne,
+	selectBYTagId,
+} = require("../controllers/article_view")
 const {
 	SUCCESS,
 	USER_NO_PERMISSION,
@@ -10,7 +14,12 @@ const {
 async function selectListService(ctx, params) {
 	let page = params.page
 	params.page = (page - 1) * params.pagesize
-	const result = await selectList(params)
+	let result = []
+	if (params.hasOwnProperty("tagId")) {
+		result = await selectBYTagId(params)
+	} else {
+		result = await selectList(params)
+	}
 	await SUCCESS(ctx, removeDuplicates(result))
 }
 
@@ -70,12 +79,13 @@ async function insertService(ctx, params) {
 }
 
 /**
- * 文章去重
+ * 文章去重 （顺序没保障）
  *
- * @param {*} arr
+ * @param {Array} arr 数组
+ * @param {Boolean} flag 是否保存tag
  * @returns
  */
-function removeDuplicates(arr) {
+function removeDuplicates(arr, flag) {
 	const result = {}
 	for (let i = 0; i < arr.length; i++) {
 		const element = arr[i]

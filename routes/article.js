@@ -20,6 +20,7 @@ router.post("/list/:page/:pagesize", async function (ctx, next) {
 	let schema = {
 		page: new ParamCheck().isNumber().min(1).isRequired(),
 		pagesize: new ParamCheck().isNumber().min(1).isRequired(),
+		moreDetail: new ParamCheck().isBoolean().isRequired(),
 		tagId: new ParamCheck().isNumber().min(1),
 		categoryId: new ParamCheck().isNumber().min(1),
 	}
