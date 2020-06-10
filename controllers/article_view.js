@@ -100,5 +100,11 @@ WHERE 1=1 ${strArr.join(
   const result = await exec(sql)
   return result
 }
-
-module.exports = { selectList, selectOne, selectBYTagId }
+const selectCount = async () => {
+  const sql = `select count(*) as articleCount from articles;
+  select count(*) as tagCount from tags;
+  select count(*) as categoryCount from categories;`
+  const result = await exec(sql)
+  return result
+}
+module.exports = { selectList, selectOne, selectBYTagId, selectCount }
